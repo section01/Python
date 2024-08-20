@@ -28,17 +28,8 @@ app.config['SQLALCHEMY_ECHO'] = True
 engine = SQLAlchemy(app)
 
 class Serializer(object):
+    __table_args__ = { 'schema':'app' }
 
-    __table_args__ = {
-        "schema":"app"
-    }
-
-    def serialize(self):
-        return { c: getattr(self, c) for c in inspect(self).attrs.keys() }
-
-    @staticmethod
-    def serialize_list(l):
-        return [m.serialize() for m in l]
 
 class Example(engine.Model, Serializer):
     __tablename__ = 'example'
