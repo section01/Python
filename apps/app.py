@@ -4,6 +4,7 @@ from yaml import safe_load
 from logging import getLogger
 from logging.config import dictConfig
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.inspection import inspect
 
 load_dotenv(override=True)
 
@@ -23,20 +24,30 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://{}:{}@{}:{}/{}'.format(
     config['database']['name']
 )
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['SQLALCHEMY_ECHO'] = False
+app.config['SQLALCHEMY_ECHO'] = True
 engine = SQLAlchemy(app)
 
-class Example(engine.Model):
+class Serializer(object):
+
+    __table_args__ = {
+        "schema":"app"
+    }
+
+    def serialize(self):
+        return { c: getattr(self, c) for c in inspect(self).attrs.keys() }
+
+    @staticmethod
+    def serialize_list(l):
+        return [m.serialize() for m in l]
+
+class Example(engine.Model, Serializer):
     __tablename__ = 'example'
-    __table_args__ = {"schema":"app"}
 
     id = engine.Column(primary_key=True, autoincrement=True)
 
 @app.route('/')
 def main():
     query = engine.session.query(Example).where(Example.id == '2').first()
-    logger = getLogger()
-    logger.info(query)
     return render_template('index.html')
 
 if __name__ == '__main__':
