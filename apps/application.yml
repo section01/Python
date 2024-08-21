@@ -24,7 +24,7 @@ logging:
         handlers: [console, file]
 database:
     user: postgres
-    password: passw0rd
-    host: localhost
+    password: postgres
+    host: 192.168.1.75
     port: 5432
-    name: python
+    name: postgres

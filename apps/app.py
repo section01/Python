@@ -28,7 +28,7 @@ app.config['SQLALCHEMY_ECHO'] = True
 engine = SQLAlchemy(app)
 
 class Serializer(object):
-    __table_args__ = { 'schema':'app' }
+    __table_args__ = { 'schema':'python' }
 
 
 class Example(engine.Model, Serializer):
