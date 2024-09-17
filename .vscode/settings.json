@@ -1,0 +1,5 @@
+{
+    "python.envFile": "${workspaceFolder}/Python/.env",
+    "python.venvPath": "${workspaceFolder}\\Python\\venv",
+    "python.defaultInterpreterPath": "${workspaceFolder}/Python/venv/Scripts/python.exe",
+}
