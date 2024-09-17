@@ -30,7 +30,6 @@ engine = SQLAlchemy(app)
 class Serializer(object):
     __table_args__ = { 'schema':'python' }
 
-
 class Example(engine.Model, Serializer):
     __tablename__ = 'example'
 
