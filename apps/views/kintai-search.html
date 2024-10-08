@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>勤怠照会</title>
+    <style>
+        /* レイアウト */
+        .container {
+            display: grid;
+            grid-template-columns: 100px 400px;
+            gap: 10px;
+            justify-content: center;
+        }
+        .header {
+            grid-column: 1 / 4;
+        }
+        table, tr, td, th {
+            grid-column: 1 / 4;
+            border: 1px solid;
+            border-collapse: collapse;
+        }
+        .label {
+            grid-column: 1 / 2;
+        }
+        .item {
+            grid-column: 2 / 4;
+        }
+        /* オプション */
+        .w-100 {
+            min-width: 100%;
+        }
+        .title {
+            font-size: 30px;
+            font-weight: bolder;
+        }
+        .sub-title {
+            font-size: 18px;
+            font-weight: bolder;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = () => {
+            let date = new Date();
+            let today = [];
+            today.push(`00${date.getFullYear()}`.slice(-4));
+            today.push(`00${date.getMonth() + 1}`.slice(-2));
+            document.getElementById("month").value = today.join("-");
+        }
+    </script>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="header">
+            <div class="title">勤怠照会画面</div>
+        </div>
+        <div class="header">
+            <div class="sub-title">検索条件</div>
+        </div>
+        <div class="label">
+            <label for="month">出勤年月</label>
+        </div>
+        <div class="item">
+            <input type="month" id="month" class="w-100" name="month">
+        </div>
+        <div class="header">
+            <div class="sub-title">検索結果</div>
+        </div>
+        <table class="list">
+            <thead>
+                <tr>
+                    <th>日付</th>
+                    <th>始業</th>
+                    <th>終業</th>
+                    <th>休憩</th>
+                    <th>備考</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for v in list %}
+                <tr>
+                    <td>{{v.date}}</td>
+                    <td>{{v.start}}</td>
+                    <td>{{v.end}}</td>
+                    <td>{{v.break}}</td>
+                    <td>{{v.remark}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="item">
+            <a href="/kintai/input">勤怠登録画面へ遷移</a>
+        </div>
+    </div>
+{% endblock %}

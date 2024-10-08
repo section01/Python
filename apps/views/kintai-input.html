@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <title>勤怠登録</title>
+    <style>
+        /* レイアウト */
+        .container {
+            display: grid;
+            grid-template-columns: 100px 400px;
+            gap: 10px;
+            justify-content: center;
+        }
+        .header {
+            grid-column: 1 / 4;
+        }
+        .label {
+            grid-column: 1 / 2;
+        }
+        .item {
+            grid-column: 2 / 4;
+        }
+        /* オプション */
+        .w-100 {
+            min-width: 100%;
+        }
+        .title {
+            font-size: 30px;
+            font-weight: bolder;
+        }
+        .sub-title {
+            font-size: 18px;
+            font-weight: bolder;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = () => {
+            let date = new Date();
+            let today = [];
+            today.push(`00${date.getFullYear()}`.slice(-4));
+            today.push(`00${date.getMonth() + 1}`.slice(-2));
+            today.push(`00${date.getDate()}`.slice(-2));
+            document.getElementById("date").value = today.join("-");
+        }
+    </script>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="header">
+            <div class="title">勤怠登録画面</div>
+        </div>
+        <div class="label">
+            <label for="date">出勤年月日</label>
+        </div>
+        <div class="item">
+            <input type="date" id="date" class="w-100" name="date">
+        </div>
+        <div class="label">
+            <label for="start">始業時間</label>
+        </div>
+        <div class="item">
+            <input type="time" id="start" class="w-100" name="start">
+        </div>
+        <div class="label">
+            <label for="end">終業時間</label>
+        </div>
+        <div class="item">
+            <input type="time" id="end" class="w-100" name="end">
+        </div>
+        <div class="label">
+            <label for="break">休憩時間</label>
+        </div>
+        <div class="item">
+            <input type="time" id="break" class="w-100" name="break">
+        </div>
+        <div class="label">
+            <label for="remark">備考</label>
+        </div>
+        <div class="item">
+            <textarea id="remark" class="w-100" name="remark" rows="10" maxlength="256"></textarea>
+        </div>
+        <div class="item">
+            <input type="submit" id="search">登録</button>
+        </div>
+        <div class="item">
+            <a href="/kintai/search">勤怠照会画面へ遷移</a>
+        </div>
+    </div>
+{% endblock %}
