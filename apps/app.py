@@ -4,14 +4,13 @@ from yaml import safe_load
 from logging import getLogger
 from logging.config import dictConfig
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.inspection import inspect
 
 load_dotenv(override=True)
 
+app = Flask(__name__, static_folder='./public', template_folder='./views')
+
 with open('./apps/application.yml') as yml:
     config = safe_load(yml)
-
-app = Flask(__name__, static_folder='./static', template_folder='./templates')
 
 dictConfig(config['logging'])
 logger = getLogger(__name__)
@@ -21,23 +20,13 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://{}:{}@{}:{}/{}'.format(
     config['database']['password'],
     config['database']['host'],
     config['database']['port'],
-    config['database']['name']
-)
+    config['database']['name'])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_ECHO'] = True
 engine = SQLAlchemy(app)
 
-class Serializer(object):
-    __table_args__ = { 'schema':'python' }
-
-class Example(engine.Model, Serializer):
-    __tablename__ = 'example'
-
-    id = engine.Column(primary_key=True, autoincrement=True)
-
 @app.route('/')
 def main():
-    query = engine.session.query(Example).where(Example.id == '2').first()
     return render_template('index.html')
 
 if __name__ == '__main__':
