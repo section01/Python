@@ -4,46 +4,50 @@
     <link href="../public/kintai.css" rel="stylesheet" />
 {% endblock %}
 {% block body %}
-    <div class="kintai-container">
-        <div class="header">
-            <div class="title">勤怠照会画面</div>
+    <form action="/kintai/search_find" method="POST">
+        <div class="kintai-container">
+            <div class="header">
+                <div class="title">勤怠照会画面</div>
+            </div>
+            <div class="header">
+                <div class="descript">検索条件</div>
+            </div>
+            <div class="label">
+                <label for="condition">出勤年月</label>
+            </div>
+            <div class="item">
+                <input type="month" id="condition" class="w-25" name="condition">
+                <input type="submit" id="search" value="検索" />
+            </div>
+            <div class="header">
+                <div class="descript">検索結果</div>
+            </div>
+            <table class="list">
+                <thead>
+                    <tr>
+                        <th>日付</th>
+                        <th>始業</th>
+                        <th>終業</th>
+                        <th>休憩</th>
+                        <th>備考</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for value in list %}
+                    <tr>
+                        <td>{{value.date.strftime('%Y/%m/%d')}}</td>
+                        <td>{{value.start.strftime('%H:%M')}}</td>
+                        <td>{{value.close.strftime('%H:%M')}}</td>
+                        <td>{{value.rest.strftime('%H:%M')}}</td>
+                        <td>{{value.remark}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="footer">
+                <a href="/kintai/input_init">勤怠登録画面へ遷移</a>
+            </div>
         </div>
-        <div class="header">
-            <div class="descript">検索条件</div>
-        </div>
-        <div class="label">
-            <label for="month">出勤年月</label>
-        </div>
-        <div class="item">
-            <input type="month" id="month" class="w-25" name="month">
-        </div>
-        <div class="header">
-            <div class="descript">検索結果</div>
-        </div>
-        <table class="list">
-            <thead>
-                <tr>
-                    <th>日付</th>
-                    <th>始業</th>
-                    <th>終業</th>
-                    <th>休憩</th>
-                    <th>備考</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for v in list %}
-                <tr>
-                    <td>{{v.date}}</td>
-                    <td>{{v.start}}</td>
-                    <td>{{v.end}}</td>
-                    <td>{{v.break}}</td>
-                    <td>{{v.remark}}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <div class="footer">
-            <a href="/kintai/input">勤怠登録画面へ遷移</a>
-        </div>
-    </div>
+    </form>
+    <script src="../public/kintai-search.js"></script>
 {% endblock %}

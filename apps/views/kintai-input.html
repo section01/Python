@@ -21,16 +21,16 @@
             <input type="time" id="start" class="w-25" name="start" />
         </div>
         <div class="label">
-            <label for="end">終業時間</label>
+            <label for="close">終業時間</label>
         </div>
         <div class="item">
-            <input type="time" id="end" class="w-25" name="end" />
+            <input type="time" id="close" class="w-25" name="close" />
         </div>
         <div class="label">
-            <label for="break">休憩時間</label>
+            <label for="rest">休憩時間</label>
         </div>
         <div class="item">
-            <input type="time" id="break" class="w-25" name="break" />
+            <input type="time" id="rest" class="w-25" name="rest" />
         </div>
         <div class="label">
             <label for="remark">備考</label>
@@ -42,7 +42,8 @@
             <input type="submit" id="search" value="登録" />
         </div>
         <div class="footer">
-            <a href="/kintai/search">勤怠照会画面へ遷移</a>
+            <a href="/kintai/search_init">勤怠照会画面へ遷移</a>
         </div>
     </div>
+    <script src="../public/kintai-input.js"></script>
 {% endblock %}
