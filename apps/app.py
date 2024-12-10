@@ -60,26 +60,29 @@ class Employees(engine.Model, Serializer):
 @app.route('/login_auth', methods=['POST'])
 def login_auth():
 
-    #入力情報を取得
+    #入力された従業員IDとパスワードを取得
     req_employee_id = request.form['employee_id']
     req_password = request.form['password']
 
-    #従業員IDでDB検索し、一致するパスワードを取得
+    #取得した従業員IDでDB検索し、一致したレコードのパスワードを1件取得
     user_ps = Employees.query.with_entities(
         Employees.password.label('password')) \
             .filter(Employees.employee_id == req_employee_id).first()
 
+    #該当したパスワードの存在確認
     if user_ps :
+    #存在する場合
         #パスワードを比較
         if req_password == user_ps.password :
-            #TODO
-            #従業員IDをセッションへ格納し、〇〇画面へ遷移
+        #一致した場合
+            #従業員IDをセッションへ格納し、〇〇画面へ遷移　#TODO
             session["employee_id"] = req_employee_id
             return render_template('index.html')
 
+        #一致しない場合
         return render_template('login.html', variable='従業員IDまたはパスワードが間違っています。')
 
-    #一致するパスワードがない場合
+    #存在しない場合
     return render_template('login.html', variable='従業員IDまたはパスワードが間違っています。')
 
 if __name__ == '__main__':
