@@ -22,7 +22,7 @@ app = Flask(__name__, static_folder='./public', template_folder='./views')
 dictConfig(config['logging'])
 logger = getLogger(__name__)
 
-# DB定義
+# DB接続
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://{}:{}@{}:{}/{}'.format(
     config['database']['user'],
     config['database']['password'],
@@ -33,72 +33,87 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_ECHO'] = True
 engine = SQLAlchemy(app)
 
-class Serializer(object):
-    __table_args__ = { 'schema': 'python' }
-
-class Kintai(engine.Model, Serializer):
-    __tablename__ = "Kintai"
-
-    kintai_id = engine.Column('kintai_id', engine.Sequence('Kintai_kintai_id'), primary_key=True)
-    employee_id = engine.Column('employee_id', engine.Sequence('Kintai_employee_id'))
-    date = engine.Column('date', engine.Date)
-    start = engine.Column('start', engine.Time)
-    close = engine.Column('close', engine.Time)
-    rest = engine.Column('rest', engine.Time)
-    remark = engine.Column('remark', engine.String(256))
-    delete_flag = engine.Column('delete_flag', engine.Boolean)
-    update_at = engine.Column('update_at', engine.DateTime)
-    create_at = engine.Column('create_at', engine.DateTime)
-
 # ルートパス
 @app.route('/')
 def main():
     return render_template('kintai-input.html')
 
-# TODO ファイル分割が分からなかったのでとりあえず定義
-# 勤怠登録
-@app.route('/kintai/input_init', methods=['GET'])
-def input_init():
-    return render_template('kintai-input.html')
-
-# 勤怠検索
-@app.route('/kintai/search_init', methods=['GET'])
-def search_init():
-    date = datetime.datetime.now()
-
-    list = Kintai.query \
-        .with_entities(
-            Kintai.date.label('date'),
-            Kintai.start.label('start'),
-            Kintai.close.label('close'),
-            Kintai.rest.label('rest'),
-            Kintai.remark.label('remark')) \
-        .filter(Kintai.employee_id == '1') \
-        .filter(and_(extract('year', Kintai.date) == date.year, extract('month', Kintai.date) == date.month)) \
-        .all()
-
-    return render_template('kintai-search.html', list=list)
-
-@app.route('/kintai/search_find', methods=['POST'])
-def search_find():
-    date = request.form['condition'].split('-')
-    print(date)
-    year = date[0]
-    month = date[1]
-
-    list = Kintai.query \
-        .with_entities(
-            Kintai.date.label('date'),
-            Kintai.start.label('start'),
-            Kintai.close.label('close'),
-            Kintai.rest.label('rest'),
-            Kintai.remark.label('remark')) \
-        .filter(Kintai.employee_id == '1') \
-        .filter(and_(extract('year', Kintai.date) == year, extract('month', Kintai.date) == month)) \
-        .all()
-    
-    return render_template('kintai-search.html', list=list)
-
 # おまじない
 if __name__ == '__main__':
     app.run(debug=True)
+
+##################################################
+# ここまで共通定義
+##################################################
+
+# モデル基底クラス
+class Serializer(object):
+    __table_args__ = { 'schema': 'python', 'quote': False }
+
+# 勤怠表モデルクラス
+class Kintai(engine.Model, Serializer):
+    __tablename__ = 'Kintai'
+
+    # 勤怠ID
+    kintai_id = engine.Column('kintai_id', engine.Sequence('Kintai_kintai_id'), primary_key=True)
+    # 従業員ID
+    employee_id = engine.Column('employee_id', engine.Sequence('Kintai_employee_id'))
+    # 出勤日
+    date = engine.Column('date', engine.Date)
+    # 始業
+    start = engine.Column('start', engine.Time)
+    # 終業
+    close = engine.Column('close', engine.Time)
+    # 休憩
+    rest = engine.Column('rest', engine.Time)
+    # 備考
+    remark = engine.Column('remark', engine.String(256))
+    # 削除フラグ
+    delete_flag = engine.Column('delete_flag', engine.Boolean)
+    # 更新日
+    update_at = engine.Column('update_at', engine.DateTime)
+    # 作成日
+    create_at = engine.Column('create_at', engine.DateTime)
+
+# 勤怠入力画面クラス
+class KintaiInput:
+    # 初期表示
+    @app.route('/kintai/input/init', methods=['GET'])
+    def input_init():
+        return render_template('kintai-input.html')
+
+# 勤怠照会画面クラス
+class KintaiInquire:
+    # 初期表示
+    @app.route('/kintai/inquire/init', methods=['GET'])
+    def init():
+        date = datetime.datetime.now()
+        list = KintaiInquire.findKintai(date.year, date.month)
+
+        return render_template('kintai-inquire.html', list=list)
+
+    # 照会
+    @app.route('/kintai/inquire/search', methods=['POST'])
+    def search():
+        emsg = None
+
+        if not request.form['condition']:
+            
+            return render_template('kintai-inquire.html', msg = '出勤年月を入力して下さい。')
+
+        date = request.form['condition'].split('-')
+        list = KintaiInquire.findKintai(date[0], date[1])
+        
+        return render_template('kintai-inquire.html', list=list)
+
+    def findKintai(year, month):
+        return Kintai.query \
+            .with_entities(
+                Kintai.date.label('date'),
+                Kintai.start.label('start'),
+                Kintai.close.label('close'),
+                Kintai.rest.label('rest'),
+                Kintai.remark.label('remark')) \
+            .filter(Kintai.employee_id == '1') \
+            .filter(and_(extract('year', Kintai.date) == year, extract('month', Kintai.date) == month)) \
+            .all()
