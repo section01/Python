@@ -33,27 +33,28 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_ECHO'] = True
 engine = SQLAlchemy(app)
 
+# おまじない
+if __name__ == '__main__':
+    app.run(debug=True)
+
 # ルートパス
 @app.route('/')
 def main():
     return render_template('kintai-input.html')
 
-# おまじない
-if __name__ == '__main__':
-    app.run(debug=True)
-
 # モデル基底クラス
 class Serializer(object):
-    __table_args__ = { 'schema': 'python', 'quote': False }
+    __table_args__ = { 'schema': 'python', 'quote': True }
 
 # 勤怠表モデルクラス
 class Kintai(engine.Model, Serializer):
     __tablename__ = 'Kintai'
 
     # 勤怠ID
-    kintai_id = engine.Column('kintai_id', engine.Sequence('Kintai_kintai_id'), primary_key=True)
+    kintai_id = engine.Column('kintai_id', \
+        engine.Sequence('Kintai_kintai_id_seq', schema='python', start=1, increment=1), primary_key=True)
     # 従業員ID
-    employee_id = engine.Column('employee_id', engine.Sequence('Kintai_employee_id'))
+    employee_id = engine.Column('employee_id', engine.String(32))
     # 出勤日
     date = engine.Column('date', engine.Date)
     # 始業
@@ -79,12 +80,46 @@ class KintaiInput:
     def input_init():
         return render_template('kintai-input.html')
 
+    # 登録
+    @app.route('/kintai/input/entry', methods=['POST'])
+    def input_entry():
+        msg = []
+
+        # バリデーションチェック
+        if not request.form['date']:
+            msg.append('出勤年月日を入力して下さい。')
+        if not request.form['start']:
+            msg.append('始業時間を入力して下さい。')
+        if not request.form['close']:
+            msg.append('終業時間を入力して下さい。')
+        if not request.form['rest']:
+            msg.append('休憩時間を入力して下さい。')
+
+        if len(msg) > 0:
+            return render_template('kintai-inquire.html', msg = msg)
+
+        newKintai = Kintai(
+            employee_id = '1',
+            date = request.form['date'],
+            start = request.form['start'],
+            close = request.form['close'],
+            rest = request.form['rest'],
+            remark = request.form['remark'],
+            delete_flag = False
+        )
+
+        engine.session.add(newKintai)
+        engine.session.flush()
+        engine.session.commit()
+
+        return render_template('kintai-input.html')
+
 # 勤怠照会画面クラス
 class KintaiInquire:
 
     # 初期表示
     @app.route('/kintai/inquire/init', methods=['GET'])
-    def init():
+    def inquire_init():
         # 勤怠テーブル検索
         date = datetime.datetime.now()
         list = KintaiInquire.findKintai('1', date.year, date.month)
@@ -93,7 +128,7 @@ class KintaiInquire:
 
     # 照会
     @app.route('/kintai/inquire/search', methods=['POST'])
-    def search():
+    def inquire_search():
         # バリデーションチェック
         if not request.form['condition']:
             return render_template('kintai-inquire.html', msg = '出勤年月を入力して下さい。')

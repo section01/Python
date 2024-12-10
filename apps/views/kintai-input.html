@@ -3,47 +3,49 @@
     <title>勤怠登録</title>
     <link href="/public/kintai.css" rel="stylesheet" />
 {% endblock %}
-{% block body %}
-    <div class="kintai-container">
-        <div class="header">
-            <div class="title">勤怠登録画面</div>
+    {% block body %}
+    <form action="/kintai/input/entry" method="POST">
+        <div class="kintai-container">
+            <div class="header">
+                <div class="title">勤怠登録画面</div>
+            </div>
+            <div class="label">
+                <label for="date">出勤年月日</label>
+            </div>
+            <div class="item">
+                <input type="date" id="date" class="w-25" name="date" />
+            </div>
+            <div class="label">
+                <label for="start">始業時間</label>
+            </div>
+            <div class="item">
+                <input type="time" id="start" class="w-25" name="start" />
+            </div>
+            <div class="label">
+                <label for="close">終業時間</label>
+            </div>
+            <div class="item">
+                <input type="time" id="close" class="w-25" name="close" />
+            </div>
+            <div class="label">
+                <label for="rest">休憩時間</label>
+            </div>
+            <div class="item">
+                <input type="time" id="rest" class="w-25" name="rest" />
+            </div>
+            <div class="label">
+                <label for="remark">備考</label>
+            </div>
+            <div class="item">
+                <textarea id="remark" class="w-100" name="remark" rows="10" maxlength="256"></textarea>
+            </div>
+            <div class="footer">
+                <input type="submit" id="entry" value="登録" />
+            </div>
+            <div class="footer">
+                <a href="/kintai/inquire/init">勤怠照会画面へ遷移</a>
+            </div>
         </div>
-        <div class="label">
-            <label for="date">出勤年月日</label>
-        </div>
-        <div class="item">
-            <input type="date" id="date" class="w-25" name="date" />
-        </div>
-        <div class="label">
-            <label for="start">始業時間</label>
-        </div>
-        <div class="item">
-            <input type="time" id="start" class="w-25" name="start" />
-        </div>
-        <div class="label">
-            <label for="close">終業時間</label>
-        </div>
-        <div class="item">
-            <input type="time" id="close" class="w-25" name="close" />
-        </div>
-        <div class="label">
-            <label for="rest">休憩時間</label>
-        </div>
-        <div class="item">
-            <input type="time" id="rest" class="w-25" name="rest" />
-        </div>
-        <div class="label">
-            <label for="remark">備考</label>
-        </div>
-        <div class="item">
-            <textarea id="remark" class="w-100" name="remark" rows="10" maxlength="256"></textarea>
-        </div>
-        <div class="footer">
-            <input type="submit" id="search" value="登録" />
-        </div>
-        <div class="footer">
-            <a href="/kintai/inquire/init">勤怠照会画面へ遷移</a>
-        </div>
-    </div>
+    </form>
     <script src="../public/kintai-input.js"></script>
 {% endblock %}
