@@ -42,10 +42,6 @@ def main():
 if __name__ == '__main__':
     app.run(debug=True)
 
-##################################################
-# ここまで共通定義
-##################################################
-
 # モデル基底クラス
 class Serializer(object):
     __table_args__ = { 'schema': 'python', 'quote': False }
@@ -77,6 +73,7 @@ class Kintai(engine.Model, Serializer):
 
 # 勤怠入力画面クラス
 class KintaiInput:
+
     # 初期表示
     @app.route('/kintai/input/init', methods=['GET'])
     def input_init():
@@ -84,36 +81,41 @@ class KintaiInput:
 
 # 勤怠照会画面クラス
 class KintaiInquire:
+
     # 初期表示
     @app.route('/kintai/inquire/init', methods=['GET'])
     def init():
+        # 勤怠テーブル検索
         date = datetime.datetime.now()
-        list = KintaiInquire.findKintai(date.year, date.month)
+        list = KintaiInquire.findKintai('1', date.year, date.month)
 
         return render_template('kintai-inquire.html', list=list)
 
     # 照会
     @app.route('/kintai/inquire/search', methods=['POST'])
     def search():
-        emsg = None
-
+        # バリデーションチェック
         if not request.form['condition']:
-            
             return render_template('kintai-inquire.html', msg = '出勤年月を入力して下さい。')
 
+        # 勤怠テーブル検索
         date = request.form['condition'].split('-')
-        list = KintaiInquire.findKintai(date[0], date[1])
+        list = KintaiInquire.findKintai('1', date[0], date[1])
         
         return render_template('kintai-inquire.html', list=list)
 
-    def findKintai(year, month):
-        return Kintai.query \
-            .with_entities(
+    # 勤怠テーブル検索
+    # @param employee_id -> ログインユーザの従業員ID
+    # @param year -> 検索年
+    # @param month -> 検索月
+    # @return ヒットした勤怠データ
+    def findKintai(employee_id, year, month):
+        return Kintai.query.with_entities(
                 Kintai.date.label('date'),
                 Kintai.start.label('start'),
                 Kintai.close.label('close'),
                 Kintai.rest.label('rest'),
                 Kintai.remark.label('remark')) \
-            .filter(Kintai.employee_id == '1') \
+            .filter(Kintai.employee_id == employee_id) \
             .filter(and_(extract('year', Kintai.date) == year, extract('month', Kintai.date) == month)) \
             .all()
