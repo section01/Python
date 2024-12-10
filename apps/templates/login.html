@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン画面</title>
+</head>
+<body>
+    {% block body %}
+    <div class="container">
+        <form action="/login_auth" method="post">
+          <p class="fsize">ログイン画面</p>
+          <input type="text" placeholder="従業員ID" name="employee_id" required />
+          <input type="password" placeholder="パスワード" name="password" required />
+          <button type="submit">ログイン</button>
+        </form>
+        <h4>{{ variable }}</h4>
+    </div>
+    {% endblock %}
+</body>
+</html>

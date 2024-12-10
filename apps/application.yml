@@ -25,6 +25,6 @@ logging:
 database:
     user: postgres
     password: postgres
-    host: 192.168.1.75
+    host: 192.168.1.92
     port: 5432
     name: postgres

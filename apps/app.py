@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, session
 from dotenv import load_dotenv
 from yaml import safe_load
 from logging import getLogger
@@ -12,6 +12,7 @@ with open('./apps/application.yml') as yml:
     config = safe_load(yml)
 
 app = Flask(__name__, static_folder='./static', template_folder='./templates')
+app.secret_key = 'employee'
 
 dictConfig(config['logging'])
 logger = getLogger(__name__)
@@ -38,7 +39,48 @@ class Example(engine.Model, Serializer):
 @app.route('/')
 def main():
     query = engine.session.query(Example).where(Example.id == '2').first()
-    return render_template('index.html')
+    return render_template('login.html')
+
+class Serializer(object):
+    __table_args__ = { 'schema': 'python', 'quote': True }
+
+#従業員TBL
+class Employees(engine.Model, Serializer):
+    __tablename__ = 'Employees'
+    employee_id = engine.Column('employee_id', engine.Sequence('Employees_employee_id'), primary_key=True)
+    email = engine.Column('email',engine.String(32))
+    name = engine.Column('name',engine.String(64))
+    role_id = engine.Column('role_id',engine.Integer)
+    password = engine.Column('password',engine.String(10))
+    delete_flag = engine.Column('delete_flag',engine.Boolean)
+    update_at = engine.Column('update_at',engine.DateTime)
+    create_at = engine.Column('create_at',engine.DateTime)
+
+#ログイン認証
+@app.route('/login_auth', methods=['POST'])
+def login_auth():
+
+    #入力情報を取得
+    req_employee_id = request.form['employee_id']
+    req_password = request.form['password']
+
+    #従業員IDでDB検索し、一致するパスワードを取得
+    user_ps = Employees.query.with_entities(
+        Employees.password.label('password')) \
+            .filter(Employees.employee_id == req_employee_id).first()
+
+    if user_ps :
+        #パスワードを比較
+        if req_password == user_ps.password :
+            #TODO
+            #従業員IDをセッションへ格納し、〇〇画面へ遷移
+            session["employee_id"] = req_employee_id
+            return render_template('index.html')
+
+        return render_template('login.html', variable='従業員IDまたはパスワードが間違っています。')
+
+    #一致するパスワードがない場合
+    return render_template('login.html', variable='従業員IDまたはパスワードが間違っています。')
 
 if __name__ == '__main__':
     app.run(debug=True)
