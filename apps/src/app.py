@@ -153,6 +153,11 @@ def login_auth():
     return render_template('login.html', variable = '従業員IDまたはパスワードが間違っています。')
 
 # メニュー画面
+@app.route('/logout', methods=['GET'])
+def logout():
+    return render_template('login.html')
+
+# メニュー画面
 @app.route('/menu', methods=['GET'])
 def menu():
     return render_template('menu.html')
