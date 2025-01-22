@@ -64,6 +64,21 @@ def login_auth():
     req_employee_id = request.form['employee_id']
     req_password = request.form['password']
 
+    #入力チェック
+    if req_employee_id == "" :
+
+        if req_password == "" :
+            #従業員IDとパスワードが未入力の場合
+            return render_template('login.html', errorMessage = '従業員IDとパスワードは必須項目です。')
+        
+        #従業員IDが未入力の場合
+        return render_template('login.html', errorMessage = '従業員IDは必須項目です。')
+    
+    if req_password == "" :
+        #パスワードが未入力の場合
+        return render_template('login.html', errorMessage = 'パスワードは必須項目です。')
+
+
     #取得した従業員IDでDB検索し、一致したレコードのパスワードを1件取得
     user_ps = Employees.query.with_entities(
         Employees.password.label('password')) \
@@ -80,10 +95,10 @@ def login_auth():
             return render_template('menu.html')
 
         #一致しない場合
-        return render_template('login.html', variable='従業員IDまたはパスワードが間違っています。')
+        return render_template('login.html', variable = '従業員IDまたはパスワードが間違っています。')
 
     #存在しない場合
-    return render_template('login.html', variable='従業員IDまたはパスワードが間違っています。')
+    return render_template('login.html', variable = '従業員IDまたはパスワードが間違っています。')
 
 if __name__ == '__main__':
     app.run(debug=True)

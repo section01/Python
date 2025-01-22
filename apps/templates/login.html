@@ -17,11 +17,11 @@
 
         /* ボックスの構造を分かりやすくするため */
         .layout {
-            text-align: center;
-            background-color: #dedede;
-            padding: 10px;
-            border: 1px solid #949494;
-            margin-bottom: 10px;
+            text-align: center;             /* 水平方向の配置を指定するプロパティ(center:中央揃え) */
+            background-color: #dedede;    /* 要素の背景色 */
+            padding: 10px;                  /* 要素の内側の余白 */
+            border: 1px solid #949494;    /* 枠線 */
+            margin-bottom: 10px;            /* 要素の下側のマージン領域 */
         }
 
         /* 見出し */
@@ -33,20 +33,28 @@
 
         /* 従業員ID */
         .employee_id {
-            float: left;
-            width: 440px;
+            float: left;        /* 要素の並び left:左寄せ */
+            width: 440px;       /* 幅 */
+            font-weight: bold;  /* フォントの太さ */
         }
+
         /* パスワード */
         .password {
-            float: right;
-            width: 440px;
+            float: right;       /* 要素の並び right:右寄せ */
+            width: 440px;       /* 幅 */
+            font-weight: bold;  /* フォントの太さ */
+        }
+
+        /* エラーメッセージ */
+        .errorMessage {
+            color:rgb(252, 21, 67);
         }
 
         /* クリアフィックス */
         .clearfix:after {
-            content: "";
-            display: block;
-            clear: both;
+            content: "";    /* 要素の直前や直後に内容を挿入するプロパティ */
+            display: block; /* 要素の表示形式 */
+            clear: both;    /* float による回り込みを解除するプロパティ */
         }
 
         /* ログインボタン */
@@ -60,7 +68,7 @@
             height: 50px;               /* 高さ */
             margin: 20px auto;          /* 要素の外側部分の余白を指定するプロパティ */
             text-align: center;         /* 水平方向の配置を指定するプロパティ(center:中央揃え) */
-            width: 80%;                 /* 幅 */
+            width: 50%;                 /* 幅 */
         }
 
         -->
@@ -73,13 +81,14 @@
             <div class="layout clearfix">
                 <p class="heading">ログイン画面</p>
                 <div class="layout employee_id">従業員ID
-                    <input type="text" name="employee_id" required />
+                    <input type="text" name="employee_id" />
                 </div>
                 <div class="layout password">パスワード
-                    <input type="password" name="password" required />
+                    <input type="password" name="password" />
                 </div>
                 <div class="clearfix"></div>
-                <h4>{{ variable }}</h4>
+                <h4 class="errorMessage">{{ errorMessage }}</h4>
+                <h4 class="errorMessage">{{ variable }}</h4>
                 <button class="login_btn" type="submit">ログイン</button>
             </div>
         </form>
