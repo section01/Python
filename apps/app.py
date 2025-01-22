@@ -90,7 +90,7 @@ def login_auth():
         #パスワードを比較
         if req_password == user_ps.password :
         #一致した場合
-            #従業員IDをセッションへ格納し、メニュー画面へ遷移　#TODO
+            #従業員IDをセッションへ格納し、メニュー画面へ遷移
             session["employee_id"] = req_employee_id
             return render_template('menu.html')
 
