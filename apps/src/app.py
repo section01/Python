@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import extract, and_
 from dotenv import load_dotenv
@@ -6,6 +6,10 @@ from yaml import safe_load
 from logging import getLogger
 from logging.config import dictConfig
 import datetime
+
+######################################################################
+# アプリケーション
+######################################################################
 
 # 環境情報をenvで上書き可能にする
 load_dotenv(override=True)
@@ -34,11 +38,27 @@ db = SQLAlchemy(app)
 dictConfig(config['logging'])
 log = getLogger(__name__)
 
-# 基底モデル
+# セッションキー設定する
+app.secret_key = 'employee'
+
+# アプリケーションを実行する
+@app.route('/')
+def main():
+    return render_template('login.html')
+
+# おまじない
+if __name__ == '__main__':
+    app.run(debug=True)
+
+######################################################################
+# モデル
+######################################################################
+
+# 基底TBL
 class Serializer(object):
     __table_args__ = { 'schema': 'python', 'quote': True }
 
-# 勤怠表モデル
+# 勤怠表TBL
 class Kintai(db.Model, Serializer):
     __tablename__ = 'Kintai'
 
@@ -63,14 +83,59 @@ class Kintai(db.Model, Serializer):
     # 作成日
     create_at = db.Column('create_at', db.DateTime)
 
-# アプリケーションを実行する
-@app.route('/')
-def main():
-    return render_template('kintai-input.html')
+#従業員TBL
+class Employees(db.Model, Serializer):
+    __tablename__ = 'Employees'
 
-# おまじない
-if __name__ == '__main__':
-    app.run(debug=True)
+    # 従業員ID
+    employee_id = db.Column('employee_id', db.Sequence('Employees_employee_id'), primary_key=True)
+    # メールアドレス
+    email = db.Column('email', db.String(32))
+    # 氏名
+    name = db.Column('name', db.String(64))
+    # 役職ID
+    role_id = db.Column('role_id', db.Integer)
+    # パスワード
+    password = db.Column('password', db.String(10))
+    # 削除フラグ
+    delete_flag = db.Column('delete_flag', db.Boolean)
+    # 更新日
+    update_at = db.Column('update_at', db.DateTime)
+    # 作成日
+    create_at = db.Column('create_at', db.DateTime)
+
+######################################################################
+# 機能
+######################################################################
+
+#ログイン認証
+@app.route('/login_auth', methods=['POST'])
+def login_auth():
+
+    #入力された従業員IDとパスワードを取得
+    req_employee_id = request.form['employee_id']
+    req_password = request.form['password']
+
+    #取得した従業員IDでDB検索し、一致したレコードのパスワードを1件取得
+    user_ps = Employees.query.with_entities(
+        Employees.password.label('password')) \
+            .filter(Employees.employee_id == req_employee_id).first()
+
+    #該当したパスワードの存在確認
+    if user_ps :
+    #存在する場合
+        #パスワードを比較
+        if req_password == user_ps.password :
+        #一致した場合
+            #従業員IDをセッションへ格納し、〇〇画面へ遷移　#TODO
+            session["employee_id"] = req_employee_id
+            return render_template('kintai-input.html')
+
+        #一致しない場合
+        return render_template('login.html', variable='従業員IDまたはパスワードが間違っています。')
+
+    #存在しない場合
+    return render_template('login.html', variable='従業員IDまたはパスワードが間違っています。')
 
 # 勤怠入力画面
 class KintaiInput:
