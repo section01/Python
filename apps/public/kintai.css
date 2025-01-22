@@ -1,7 +1,5 @@
 @charset "utf-8";
 
-/* 共通 */
-
 .kintai-container {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -30,10 +28,6 @@
     min-width: 100%;
 }
 
-.kintai-container .w-50 {
-    min-width: 50%;
-}
-
 .kintai-container .w-25 {
     min-width: 25%;
 }
@@ -49,9 +43,6 @@
     padding-top: 1.5rem;
 }
 
-/* 勤怠登録画面 */
-
-/* 勤怠照会画面 */
 .kintai-container > .list,
 .kintai-container > .list tr,
 .kintai-container > .list th,
