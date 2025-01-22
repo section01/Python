@@ -75,9 +75,9 @@ def login_auth():
         #パスワードを比較
         if req_password == user_ps.password :
         #一致した場合
-            #従業員IDをセッションへ格納し、〇〇画面へ遷移　#TODO
+            #従業員IDをセッションへ格納し、メニュー画面へ遷移　#TODO
             session["employee_id"] = req_employee_id
-            return render_template('index.html')
+            return render_template('menu.html')
 
         #一致しない場合
         return render_template('login.html', variable='従業員IDまたはパスワードが間違っています。')
