@@ -1,0 +1,66 @@
+@charset "utf-8";
+
+/* 共通 */
+
+.kintai-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0 20rem;
+}
+
+.kintai-container > .header {
+    grid-column: 1 / 13;
+}
+
+.kintai-container > .footer {
+    grid-column: 1 / 13;
+}
+
+.kintai-container > .label {
+    grid-column: 1 / 3;
+}
+
+.kintai-container > .item {
+    grid-column: 3 / 13;
+}
+
+.kintai-container .w-100 {
+    min-width: 100%;
+}
+
+.kintai-container .w-50 {
+    min-width: 50%;
+}
+
+.kintai-container .w-25 {
+    min-width: 25%;
+}
+
+.kintai-container .title {
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.kintai-container .descript {
+    font-size: 18px;
+    font-weight: bolder;
+    padding-top: 1.5rem;
+}
+
+/* 勤怠登録画面 */
+
+/* 勤怠照会画面 */
+.kintai-container > .list,
+.kintai-container > .list tr,
+.kintai-container > .list th,
+.kintai-container > .list td {
+    grid-column: 1 / 13;
+    border: 1px solid;
+    border-collapse: collapse;
+}
+
+.kintai-container > .list th:nth-of-type(5)  {
+    min-width: 15rem;
+}
