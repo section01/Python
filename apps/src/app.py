@@ -1,28 +1,23 @@
 from flask import Flask, render_template, request
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import extract, and_
 from dotenv import load_dotenv
 from yaml import safe_load
 from logging import getLogger
 from logging.config import dictConfig
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import extract, and_
-
 import datetime
 
-# 環境読込
+# 環境情報をenvで上書き可能にする
 load_dotenv(override=True)
 
-# コンフィグ読込
+# application.ymlを読み込む
 with open('./apps/application.yml') as yml:
     config = safe_load(yml)
 
-# Flaskインスタンス作成
+# アプリケーションのインスタンスを取得する
 app = Flask(__name__, static_folder='../public', template_folder='../views')
 
-# ロギング
-dictConfig(config['logging'])
-logger = getLogger(__name__)
-
-# DB接続
+# データベースの接続情報を設定する
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://{}:{}@{}:{}/{}'.format(
     config['database']['user'],
     config['database']['password'],
@@ -31,61 +26,64 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://{}:{}@{}:{}/{}'.format(
     config['database']['name'])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_ECHO'] = True
-engine = SQLAlchemy(app)
+
+# データベースに接続する
+db = SQLAlchemy(app)
+
+# ロガーを取得する
+dictConfig(config['logging'])
+log = getLogger(__name__)
+
+# 基底モデル
+class Serializer(object):
+    __table_args__ = { 'schema': 'python', 'quote': True }
+
+# 勤怠表モデル
+class Kintai(db.Model, Serializer):
+    __tablename__ = 'Kintai'
+
+    # 勤怠ID
+    kintai_id = db.Column('kintai_id', db.Sequence('Kintai_kintai_id_seq', schema='python', start=1, increment=1), primary_key=True)
+    # 従業員ID
+    employee_id = db.Column('employee_id', db.String(32))
+    # 出勤日
+    date = db.Column('date', db.Date)
+    # 始業
+    start = db.Column('start', db.Time)
+    # 終業
+    close = db.Column('close', db.Time)
+    # 休憩
+    rest = db.Column('rest', db.Time)
+    # 備考
+    remark = db.Column('remark', db.String(256))
+    # 削除フラグ
+    delete_flag = db.Column('delete_flag', db.Boolean)
+    # 更新日
+    update_at = db.Column('update_at', db.DateTime)
+    # 作成日
+    create_at = db.Column('create_at', db.DateTime)
+
+# アプリケーションを実行する
+@app.route('/')
+def main():
+    return render_template('kintai-input.html')
 
 # おまじない
 if __name__ == '__main__':
     app.run(debug=True)
 
-# ルートパス
-@app.route('/')
-def main():
-    return render_template('kintai-input.html')
-
-# モデル基底クラス
-class Serializer(object):
-    __table_args__ = { 'schema': 'python', 'quote': True }
-
-# 勤怠表モデルクラス
-class Kintai(engine.Model, Serializer):
-    __tablename__ = 'Kintai'
-
-    # 勤怠ID
-    kintai_id = engine.Column('kintai_id', \
-        engine.Sequence('Kintai_kintai_id_seq', schema='python', start=1, increment=1), primary_key=True)
-    # 従業員ID
-    employee_id = engine.Column('employee_id', engine.String(32))
-    # 出勤日
-    date = engine.Column('date', engine.Date)
-    # 始業
-    start = engine.Column('start', engine.Time)
-    # 終業
-    close = engine.Column('close', engine.Time)
-    # 休憩
-    rest = engine.Column('rest', engine.Time)
-    # 備考
-    remark = engine.Column('remark', engine.String(256))
-    # 削除フラグ
-    delete_flag = engine.Column('delete_flag', engine.Boolean)
-    # 更新日
-    update_at = engine.Column('update_at', engine.DateTime)
-    # 作成日
-    create_at = engine.Column('create_at', engine.DateTime)
-
-# 勤怠入力画面クラス
+# 勤怠入力画面
 class KintaiInput:
 
     # 初期表示
-    @app.route('/kintai/input/init', methods=['GET'])
+    @app.route('/kintai/input', methods=['GET'])
     def input_init():
         return render_template('kintai-input.html')
 
-    # 登録
+    # 登録ボタンが押下された場合
     @app.route('/kintai/input/entry', methods=['POST'])
     def input_entry():
         msg = []
-
-        # バリデーションチェック
         if not request.form['date']:
             msg.append('出勤年月日を入力して下さい。')
         if not request.form['start']:
@@ -96,7 +94,7 @@ class KintaiInput:
             msg.append('休憩時間を入力して下さい。')
 
         if len(msg) > 0:
-            return render_template('kintai-inquire.html', msg = msg)
+            return render_template('kintai-input.html', msg = msg)
 
         newKintai = Kintai(
             employee_id = '1',
@@ -108,43 +106,36 @@ class KintaiInput:
             delete_flag = False
         )
 
-        engine.session.add(newKintai)
-        engine.session.flush()
-        engine.session.commit()
+        db.session.add(newKintai)
+        db.session.flush()
+        db.session.commit()
 
         return render_template('kintai-input.html')
 
-# 勤怠照会画面クラス
+# 勤怠照会画面
 class KintaiInquire:
 
     # 初期表示
-    @app.route('/kintai/inquire/init', methods=['GET'])
+    @app.route('/kintai/inquire', methods=['GET'])
     def inquire_init():
-        # 勤怠テーブル検索
         date = datetime.datetime.now()
-        list = KintaiInquire.findKintai('1', date.year, date.month)
+        list = KintaiInquire.findKintai(Kintai, '1', date.year, date.month)
 
         return render_template('kintai-inquire.html', list=list)
 
-    # 照会
+    # 検索ボタンが押下された場合
     @app.route('/kintai/inquire/search', methods=['POST'])
     def inquire_search():
-        # バリデーションチェック
         if not request.form['condition']:
             return render_template('kintai-inquire.html', msg = '出勤年月を入力して下さい。')
-
-        # 勤怠テーブル検索
+        
         date = request.form['condition'].split('-')
-        list = KintaiInquire.findKintai('1', date[0], date[1])
+        list = KintaiInquire.findKintai(Kintai, '1', date[0], date[1])
         
         return render_template('kintai-inquire.html', list=list)
 
-    # 勤怠テーブル検索
-    # @param employee_id -> ログインユーザの従業員ID
-    # @param year -> 検索年
-    # @param month -> 検索月
-    # @return ヒットした勤怠データ
-    def findKintai(employee_id, year, month):
+    # 勤怠テーブルを検索
+    def findKintai(Kintai, employee_id, year, month):
         return Kintai.query.with_entities(
                 Kintai.date.label('date'),
                 Kintai.start.label('start'),
