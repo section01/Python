@@ -15,7 +15,7 @@ with open('./apps/application.yml') as yml:
     config = safe_load(yml)
 
 # アプリケーションのインスタンスを取得する
-app = Flask(__name__, static_folder='../public', template_folder='../views')
+app = Flask(__name__, static_folder='../public', template_folder='../templates')
 
 # データベースの接続情報を設定する
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://{}:{}@{}:{}/{}'.format(
