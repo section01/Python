@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block head %}
     <title>勤怠登録</title>
-    <link href="/public/kintai.css" rel="stylesheet" />
+    <link href="/static/css/kintai.css" rel="stylesheet" />
 {% endblock %}
     {% block body %}
     <form action="/kintai/input/entry" method="POST">
@@ -43,9 +43,8 @@
                 <input type="submit" id="entry" value="登録" />
             </div>
             <div class="footer">
-                <a href="/kintai/inquire">勤怠照会画面へ遷移</a>
+                <a href="/menu">メニューに戻る</a>
             </div>
         </div>
     </form>
-    <script src="../public/kintai-input.js"></script>
 {% endblock %}

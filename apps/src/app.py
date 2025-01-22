@@ -19,7 +19,7 @@ with open('./apps/application.yml') as yml:
     config = safe_load(yml)
 
 # アプリケーションのインスタンスを取得する
-app = Flask(__name__, static_folder='../public', template_folder='../templates')
+app = Flask(__name__, static_folder='../static', template_folder='../templates')
 
 # データベースの接続情報を設定する
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://{}:{}@{}:{}/{}'.format(
@@ -129,13 +129,18 @@ def login_auth():
         #一致した場合
             #従業員IDをセッションへ格納し、〇〇画面へ遷移　#TODO
             session["employee_id"] = req_employee_id
-            return render_template('kintai-input.html')
+            return render_template('menu.html')
 
         #一致しない場合
         return render_template('login.html', variable='従業員IDまたはパスワードが間違っています。')
 
     #存在しない場合
     return render_template('login.html', variable='従業員IDまたはパスワードが間違っています。')
+
+# メニュー画面
+@app.route('/menu', methods=['GET'])
+def menu():
+    return render_template('menu.html')
 
 # 勤怠入力画面
 class KintaiInput:
