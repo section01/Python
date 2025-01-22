@@ -43,6 +43,9 @@
                 <input type="submit" id="entry" value="登録" />
             </div>
             <div class="footer">
+                {% for v in msg %}{{ v }}<br>{% endfor %}
+            </div>
+            <div class="footer">
                 <a href="/menu">メニューに戻る</a>
             </div>
         </div>
