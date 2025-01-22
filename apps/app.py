@@ -38,7 +38,7 @@ class Example(engine.Model, Serializer):
 @app.route('/')
 def main():
     query = engine.session.query(Example).where(Example.id == '2').first()
-    return render_template('index.html')
+    return render_template('menu.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
