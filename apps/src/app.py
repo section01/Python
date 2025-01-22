@@ -16,7 +16,7 @@ with open('./apps/application.yml') as yml:
     config = safe_load(yml)
 
 # Flaskインスタンス作成
-app = Flask(__name__, static_folder='./public', template_folder='./views')
+app = Flask(__name__, static_folder='../public', template_folder='../views')
 
 # ロギング
 dictConfig(config['logging'])
