@@ -4,17 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ログイン画面</title>
+    <style>
+        <!--
+        /**
+        * レイアウト用ボックスを囲む
+        */
+        .container {
+            width: 960px;       /* サイトの基本となる横幅 */
+            margin-right: auto; /* 右側の余白を自動で調整 */
+            margin-left: auto;  /* 左側の余白を自動で調整 */
+        }
+
+        /* ボックスの構造を分かりやすくするため */
+        .layout {
+            text-align: center;
+            background-color: #dedede;
+            padding: 10px;
+            border: 1px solid #949494;
+            margin-bottom: 10px;
+        }
+
+        /* 見出し */
+        .heading {
+            color: #000000;   /* 文字色 */
+            Font-size: 30px;    /* 文字サイズ指定 */
+            font-weight: bold;  /* フォントの太さ */
+        }
+
+        /* 従業員ID */
+        .employee_id {
+            float: left;
+            width: 440px;
+        }
+        /* パスワード */
+        .password {
+            float: right;
+            width: 440px;
+        }
+
+        /* クリアフィックス */
+        .clearfix:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        /* ログインボタン */
+        .login_btn {
+            background-color: #403f3c;/* ボタン全体の色 */  
+            border: none;               /* 枠線 */
+            border-radius: 10px;        /* ボックスの角を丸くする */
+            color: #fff;              /* 文字色 */
+            cursor: pointer;            /* マウスポインターが要素の上にいるときに表示されるマウスカーソルの種類(pointer:指差しの手に) */
+            font-weight: bold;          /* フォントの太さ */
+            height: 50px;               /* 高さ */
+            margin: 20px auto;          /* 要素の外側部分の余白を指定するプロパティ */
+            text-align: center;         /* 水平方向の配置を指定するプロパティ(center:中央揃え) */
+            width: 80%;                 /* 幅 */
+        }
+
+        -->
+    </style>
 </head>
 <body>
     {% block body %}
     <div class="container">
         <form action="/login_auth" method="post">
-          <p class="fsize">ログイン画面</p>
-          <input type="text" placeholder="従業員ID" name="employee_id" required />
-          <input type="password" placeholder="パスワード" name="password" required />
-          <button type="submit">ログイン</button>
+            <div class="layout clearfix">
+                <p class="heading">ログイン画面</p>
+                <div class="layout employee_id">従業員ID
+                    <input type="text" name="employee_id" required />
+                </div>
+                <div class="layout password">パスワード
+                    <input type="password" name="password" required />
+                </div>
+                <div class="clearfix"></div>
+                <h4>{{ variable }}</h4>
+                <button class="login_btn" type="submit">ログイン</button>
+            </div>
         </form>
-        <h4>{{ variable }}</h4>
     </div>
     {% endblock %}
 </body>
