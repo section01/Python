@@ -186,8 +186,9 @@ class KintaiInput:
         if len(msgs) > 0:
             return render_template('kintai-input.html', msgs = msgs)
 
+        employee_id = session["employee_id"]
         newKintai = Kintai(
-            employee_id = '1',
+            employee_id = employee_id,
             date = request.form['date'],
             start = request.form['start'],
             close = request.form['close'],
@@ -221,8 +222,9 @@ class KintaiInquire:
             msgs.append('出勤年月を入力して下さい。')
             return render_template('kintai-inquire.html', msgs = msgs)
         
+        employee_id = session["employee_id"]
         date = request.form['condition'].split('-')
-        list = KintaiInquire.findKintai(Kintai, '1', date[0], date[1])
+        list = KintaiInquire.findKintai(Kintai, employee_id, date[0], date[1])
         
         return render_template('kintai-inquire.html', list=list)
 
@@ -236,4 +238,5 @@ class KintaiInquire:
                 Kintai.remark.label('remark')) \
             .filter(Kintai.employee_id == employee_id) \
             .filter(and_(extract('year', Kintai.date) == year, extract('month', Kintai.date) == month)) \
+            .filter(Kintai.delete_flag.is_(False)) \
             .all()
