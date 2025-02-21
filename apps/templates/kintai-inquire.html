@@ -9,6 +9,11 @@
             <div class="header">
                 <div class="title">勤怠照会画面</div>
             </div>
+            {% if msgs|length > 0 %}
+                <div class="error">
+                    {% for msg in msgs %}{{ msg }}<br>{% endfor %}
+                </div>
+            {% endif %}
             <div class="header">
                 <div class="descript">検索条件</div>
             </div>
@@ -44,9 +49,6 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <div class="footer">
-                {{ msg }}
-            </div>
             <div class="footer">
                 <a href="/menu">メニューに戻る</a>
             </div>

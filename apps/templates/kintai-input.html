@@ -9,6 +9,11 @@
             <div class="header">
                 <div class="title">勤怠登録画面</div>
             </div>
+            {% if msgs|length > 0 %}
+                <div class="error">
+                    {% for msg in msgs %}{{ msg }}<br>{% endfor %}
+                </div>
+            {% endif %}
             <div class="label">
                 <label for="date">出勤年月日</label>
             </div>
@@ -41,9 +46,6 @@
             </div>
             <div class="footer">
                 <input type="submit" id="entry" value="登録" />
-            </div>
-            <div class="footer">
-                {% for v in msg %}{{ v }}<br>{% endfor %}
             </div>
             <div class="footer">
                 <a href="/menu">メニューに戻る</a>

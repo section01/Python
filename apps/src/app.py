@@ -173,18 +173,18 @@ class KintaiInput:
     # 登録ボタンが押下された場合
     @app.route('/kintai/input/entry', methods=['POST'])
     def input_entry():
-        msg = []
+        msgs = []
         if not request.form['date']:
-            msg.append('出勤年月日を入力して下さい。')
+            msgs.append('出勤年月日を入力して下さい。')
         if not request.form['start']:
-            msg.append('始業時間を入力して下さい。')
+            msgs.append('始業時間を入力して下さい。')
         if not request.form['close']:
-            msg.append('終業時間を入力して下さい。')
+            msgs.append('終業時間を入力して下さい。')
         if not request.form['rest']:
-            msg.append('休憩時間を入力して下さい。')
+            msgs.append('休憩時間を入力して下さい。')
 
-        if len(msg) > 0:
-            return render_template('kintai-input.html', msg = msg)
+        if len(msgs) > 0:
+            return render_template('kintai-input.html', msgs = msgs)
 
         newKintai = Kintai(
             employee_id = '1',
@@ -216,8 +216,10 @@ class KintaiInquire:
     # 検索ボタンが押下された場合
     @app.route('/kintai/inquire/search', methods=['POST'])
     def inquire_search():
+        msgs = []
         if not request.form['condition']:
-            return render_template('kintai-inquire.html', msg = '出勤年月を入力して下さい。')
+            msgs.append('出勤年月を入力して下さい。')
+            return render_template('kintai-inquire.html', msgs = msgs)
         
         date = request.form['condition'].split('-')
         list = KintaiInquire.findKintai(Kintai, '1', date[0], date[1])

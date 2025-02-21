@@ -1,7 +1,6 @@
 @charset "utf-8";
 
 /* 共通 */
-
 .kintai-container {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -49,9 +48,28 @@
     padding-top: 1.5rem;
 }
 
-/* 勤怠登録画面 */
+.info {
+    grid-column: 1 / 13;
+    padding:12px;
+    font-weight:850;
+    background:#99CCFF;
+}
 
-/* 勤怠照会画面 */
+.success {
+    grid-column: 1 / 13;
+    padding:12px;
+    font-weight:850;
+    background:#CCFFCC;
+}
+
+.error {
+    grid-column: 1 / 13;
+    padding:12px;
+    font-weight:850;
+    background:#FFEBE8;
+}
+
+/* 勤怠登録・照会画面 */
 .kintai-container > .list,
 .kintai-container > .list tr,
 .kintai-container > .list th,
