@@ -1,0 +1,775 @@
+{
+  "id": "133e15ba-046e-49f5-94d5-e6e6034a2d5e",
+  "version": "2.0",
+  "name": "Python",
+  "url": "http://192.168.1.100/",
+  "tests": [{
+    "id": "2dd90d36-d30e-4682-a4a9-0ef2d90bc785",
+    "name": "1-1_画面遷移",
+    "commands": [{
+      "id": "1f7d4f8d-7923-4a16-83a9-729372e5243e",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bef5e78a-8874-4ca5-8dae-3dd274f75599",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1105x825",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2af6ee86-6cc9-4f93-9ad3-3febdf843b76",
+      "comment": "",
+      "command": "click",
+      "target": "name=employee_id",
+      "targets": [
+        ["name=employee_id", "name"],
+        ["css=.employee_id > input", "css:finder"],
+        ["xpath=//input[@name='employee_id']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6b5c1d27-f30a-411e-a890-0d2de6f358e4",
+      "comment": "",
+      "command": "type",
+      "target": "name=employee_id",
+      "targets": [
+        ["name=employee_id", "name"],
+        ["css=.employee_id > input", "css:finder"],
+        ["xpath=//input[@name='employee_id']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "1"
+    }, {
+      "id": "be2c99b9-bc45-4f69-9afa-35502671fbfa",
+      "comment": "",
+      "command": "click",
+      "target": "name=password",
+      "targets": [
+        ["name=password", "name"],
+        ["css=.password > input", "css:finder"],
+        ["xpath=//input[@name='password']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1f3a52e4-df2d-4705-b1b0-f3ca05bbe90f",
+      "comment": "",
+      "command": "type",
+      "target": "name=password",
+      "targets": [
+        ["name=password", "name"],
+        ["css=.password > input", "css:finder"],
+        ["xpath=//input[@name='password']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "password"
+    }, {
+      "id": "b207a3b7-c2c9-44b2-9ba4-3c528f42a706",
+      "comment": "",
+      "command": "click",
+      "target": "css=.login_btn",
+      "targets": [
+        ["css=.login_btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'ログイン')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6da06d49-e034-4fae-b980-10c615109b8f",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=勤怠登録",
+      "targets": [
+        ["linkText=勤怠登録", "linkText"],
+        ["css=.form-group:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'勤怠登録')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/kintai/input')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'勤怠登録')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ea3438ef-c4e2-4c8b-8d30-c899fdc1e072",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=メニューに戻る",
+      "targets": [
+        ["linkText=メニューに戻る", "linkText"],
+        ["css=a", "css:finder"],
+        ["xpath=//a[contains(text(),'メニューに戻る')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/menu')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'メニューに戻る')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "85ec3c04-356d-4270-84ea-4637e681a77d",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=勤怠照会",
+      "targets": [
+        ["linkText=勤怠照会", "linkText"],
+        ["css=.form-group:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'勤怠照会')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/kintai/inquire')]", "xpath:href"],
+        ["xpath=//div[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'勤怠照会')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e815a47e-3e6d-4402-a69d-7020e4364011",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=メニューに戻る",
+      "targets": [
+        ["linkText=メニューに戻る", "linkText"],
+        ["css=a", "css:finder"],
+        ["xpath=//a[contains(text(),'メニューに戻る')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/menu')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'メニューに戻る')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9af39296-792c-45db-b9b1-30d8c836e173",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=ログアウト",
+      "targets": [
+        ["linkText=メニューに戻る", "linkText"],
+        ["css=a", "css:finder"],
+        ["xpath=//a[contains(text(),'メニューに戻る')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/menu')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'メニューに戻る')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "c8520a79-0d4b-4f35-ac75-dcb37ebe7d6b",
+    "name": "1-3_勤怠検索",
+    "commands": [{
+      "id": "c1ec411d-e0a3-43bd-8d96-718c73533d08",
+      "comment": "",
+      "command": "open",
+      "target": "http://192.168.1.100/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2b956ff4-8886-428c-86b6-d393571e8ee1",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1107x824",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4290363f-5652-4427-b2fc-98bff46f7bd5",
+      "comment": "",
+      "command": "click",
+      "target": "name=employee_id",
+      "targets": [
+        ["name=employee_id", "name"],
+        ["css=.employee_id > input", "css:finder"],
+        ["xpath=//input[@name='employee_id']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f1c00e73-5c89-4a43-a339-4ec77605c6ca",
+      "comment": "",
+      "command": "type",
+      "target": "name=employee_id",
+      "targets": [
+        ["name=employee_id", "name"],
+        ["css=.employee_id > input", "css:finder"],
+        ["xpath=//input[@name='employee_id']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "1"
+    }, {
+      "id": "e102f466-f26a-4737-b18a-58ede50dcf45",
+      "comment": "",
+      "command": "type",
+      "target": "name=password",
+      "targets": [
+        ["name=password", "name"],
+        ["css=.password > input", "css:finder"],
+        ["xpath=//input[@name='password']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "password"
+    }, {
+      "id": "d12057a3-a54a-4547-976f-3be45eab1d4c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.login_btn",
+      "targets": [
+        ["css=.login_btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'ログイン')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "46a5f5ef-5a46-48b2-9215-3c49495852f1",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=勤怠照会",
+      "targets": [
+        ["linkText=勤怠照会", "linkText"],
+        ["css=.form-group:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'勤怠照会')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/kintai/inquire')]", "xpath:href"],
+        ["xpath=//div[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'勤怠照会')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1f3651e1-b50c-4d30-9953-c4caed89e65e",
+      "comment": "",
+      "command": "click",
+      "target": "id=condition",
+      "targets": [
+        ["id=condition", "id"],
+        ["name=condition", "name"],
+        ["css=#condition", "css:finder"],
+        ["xpath=//input[@id='condition']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "17788df1-4389-4203-8dee-3b160078ed07",
+      "comment": "",
+      "command": "type",
+      "target": "id=condition",
+      "targets": [
+        ["id=condition", "id"],
+        ["name=condition", "name"],
+        ["css=#condition", "css:finder"],
+        ["xpath=//input[@id='condition']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "2025-01"
+    }, {
+      "id": "7fb6056e-4da2-479a-9eff-ac5faff9f526",
+      "comment": "",
+      "command": "click",
+      "target": "id=search",
+      "targets": [
+        ["id=search", "id"],
+        ["css=#search", "css:finder"],
+        ["xpath=//input[@id='search']", "xpath:attributes"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "3d8bc3e9-45e1-4994-a7e9-40e9211ab311",
+    "name": "1-2_勤怠登録",
+    "commands": [{
+      "id": "9dbd0eac-1129-4d09-8d4d-80b173b69283",
+      "comment": "",
+      "command": "open",
+      "target": "http://192.168.1.100/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "30daadf6-a1e8-4ec2-aa68-01b19a8966ec",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1107x824",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f1c2a03b-bcca-4427-9fc6-255491e76c12",
+      "comment": "",
+      "command": "click",
+      "target": "name=employee_id",
+      "targets": [
+        ["name=employee_id", "name"],
+        ["css=.employee_id > input", "css:finder"],
+        ["xpath=//input[@name='employee_id']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "44e8679e-3b04-46f3-b265-19b4e2909c83",
+      "comment": "",
+      "command": "type",
+      "target": "name=employee_id",
+      "targets": [
+        ["name=employee_id", "name"],
+        ["css=.employee_id > input", "css:finder"],
+        ["xpath=//input[@name='employee_id']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "1"
+    }, {
+      "id": "f4adb71a-8639-4fb7-a20e-b3235975aef5",
+      "comment": "",
+      "command": "click",
+      "target": "name=password",
+      "targets": [
+        ["name=password", "name"],
+        ["css=.password > input", "css:finder"],
+        ["xpath=//input[@name='password']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5419ab34-25b9-4b7a-8c8d-66e48885966a",
+      "comment": "",
+      "command": "type",
+      "target": "name=password",
+      "targets": [
+        ["name=password", "name"],
+        ["css=.password > input", "css:finder"],
+        ["xpath=//input[@name='password']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "password"
+    }, {
+      "id": "c16fc82a-7f2e-4aa2-97e9-e639a39da639",
+      "comment": "",
+      "command": "click",
+      "target": "css=.login_btn",
+      "targets": [
+        ["css=.login_btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'ログイン')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "10769301-01a6-4952-88f0-d6da26c7382e",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=勤怠登録",
+      "targets": [
+        ["linkText=勤怠登録", "linkText"],
+        ["css=.form-group:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'勤怠登録')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/kintai/input')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'勤怠登録')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5a3744ac-45e4-46d2-8371-8c227c965fc3",
+      "comment": "",
+      "command": "click",
+      "target": "id=date",
+      "targets": [
+        ["id=date", "id"],
+        ["name=date", "name"],
+        ["css=#date", "css:finder"],
+        ["xpath=//input[@id='date']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a2b32fce-47d4-4db5-a8e5-9bb4b82b62ae",
+      "comment": "",
+      "command": "click",
+      "target": "id=date",
+      "targets": [
+        ["id=date", "id"],
+        ["name=date", "name"],
+        ["css=#date", "css:finder"],
+        ["xpath=//input[@id='date']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3100bd1b-da7d-4cba-ae50-c4e3c09aa33e",
+      "comment": "",
+      "command": "type",
+      "target": "id=date",
+      "targets": [
+        ["id=date", "id"],
+        ["name=date", "name"],
+        ["css=#date", "css:finder"],
+        ["xpath=//input[@id='date']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "2025-03-01"
+    }, {
+      "id": "46769b95-0d94-4bcf-8e24-e5bc6f6e32d0",
+      "comment": "",
+      "command": "click",
+      "target": "id=start",
+      "targets": [
+        ["id=start", "id"],
+        ["name=start", "name"],
+        ["css=#start", "css:finder"],
+        ["xpath=//input[@id='start']", "xpath:attributes"],
+        ["xpath=//div[5]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2f3da3e7-080b-4458-87c1-f7bb16219d7f",
+      "comment": "",
+      "command": "type",
+      "target": "id=start",
+      "targets": [
+        ["id=start", "id"],
+        ["name=start", "name"],
+        ["css=#start", "css:finder"],
+        ["xpath=//input[@id='start']", "xpath:attributes"],
+        ["xpath=//div[5]/input", "xpath:position"]
+      ],
+      "value": "09:00"
+    }, {
+      "id": "471166b4-2699-4220-8467-e6fb9804f289",
+      "comment": "",
+      "command": "click",
+      "target": "id=close",
+      "targets": [
+        ["id=close", "id"],
+        ["name=close", "name"],
+        ["css=#close", "css:finder"],
+        ["xpath=//input[@id='close']", "xpath:attributes"],
+        ["xpath=//div[7]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4a4a8e57-d78f-4d69-881c-f76c28de98a9",
+      "comment": "",
+      "command": "type",
+      "target": "id=close",
+      "targets": [
+        ["id=close", "id"],
+        ["name=close", "name"],
+        ["css=#close", "css:finder"],
+        ["xpath=//input[@id='close']", "xpath:attributes"],
+        ["xpath=//div[7]/input", "xpath:position"]
+      ],
+      "value": "18:00"
+    }, {
+      "id": "eb0d831c-ad04-4f51-9219-729724cff20c",
+      "comment": "",
+      "command": "click",
+      "target": "id=rest",
+      "targets": [
+        ["id=rest", "id"],
+        ["name=rest", "name"],
+        ["css=#rest", "css:finder"],
+        ["xpath=//input[@id='rest']", "xpath:attributes"],
+        ["xpath=//div[9]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "817f648d-a8b2-44ca-9344-630a456d0f67",
+      "comment": "",
+      "command": "type",
+      "target": "id=rest",
+      "targets": [
+        ["id=rest", "id"],
+        ["name=rest", "name"],
+        ["css=#rest", "css:finder"],
+        ["xpath=//input[@id='rest']", "xpath:attributes"],
+        ["xpath=//div[9]/input", "xpath:position"]
+      ],
+      "value": "01:00"
+    }, {
+      "id": "a5f35303-ff29-46bd-8591-baf858b57046",
+      "comment": "",
+      "command": "click",
+      "target": "id=remark",
+      "targets": [
+        ["id=remark", "id"],
+        ["name=remark", "name"],
+        ["css=#remark", "css:finder"],
+        ["xpath=//textarea[@id='remark']", "xpath:attributes"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a916649e-1de7-42c7-aa10-7c6d608d457e",
+      "comment": "",
+      "command": "type",
+      "target": "id=remark",
+      "targets": [
+        ["id=remark", "id"],
+        ["name=remark", "name"],
+        ["css=#remark", "css:finder"],
+        ["xpath=//textarea[@id='remark']", "xpath:attributes"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "自動テスト"
+    }, {
+      "id": "014d39ee-ed04-401e-a716-a21db40ac728",
+      "comment": "",
+      "command": "click",
+      "target": "id=entry",
+      "targets": [
+        ["id=entry", "id"],
+        ["css=#entry", "css:finder"],
+        ["xpath=//input[@id='entry']", "xpath:attributes"],
+        ["xpath=//div[12]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c7a55db6-12ca-494f-90ce-d79d5b822668",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "23053560-26d1-45b3-901b-123a9c1938d1",
+    "name": "2-2_勤怠登録",
+    "commands": [{
+      "id": "09617a75-f8a3-47e1-8b45-8739dd80bad7",
+      "comment": "",
+      "command": "open",
+      "target": "http://192.168.1.100/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f6134c00-3bf5-4cbf-9d4c-f0be151de28f",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1110x824",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "02d56620-4831-44af-b7d8-06fff9fca983",
+      "comment": "",
+      "command": "click",
+      "target": "name=employee_id",
+      "targets": [
+        ["name=employee_id", "name"],
+        ["css=.employee_id > input", "css:finder"],
+        ["xpath=//input[@name='employee_id']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "dbbb136c-c230-483e-b1c5-1eda2d0a2e84",
+      "comment": "",
+      "command": "type",
+      "target": "name=employee_id",
+      "targets": [
+        ["name=employee_id", "name"],
+        ["css=.employee_id > input", "css:finder"],
+        ["xpath=//input[@name='employee_id']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "1"
+    }, {
+      "id": "d34bef82-74d4-4996-b25a-9e4510e176cd",
+      "comment": "",
+      "command": "click",
+      "target": "name=password",
+      "targets": [
+        ["name=password", "name"],
+        ["css=.password > input", "css:finder"],
+        ["xpath=//input[@name='password']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c60bfe03-61e1-4777-b729-db5ea4386815",
+      "comment": "",
+      "command": "type",
+      "target": "name=password",
+      "targets": [
+        ["name=password", "name"],
+        ["css=.password > input", "css:finder"],
+        ["xpath=//input[@name='password']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "password"
+    }, {
+      "id": "cc6cd0cd-a83a-4896-ada2-51ece827ce7c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.login_btn",
+      "targets": [
+        ["css=.login_btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'ログイン')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3ec5235c-7920-4954-a334-d05ebe2a66fa",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=勤怠登録",
+      "targets": [
+        ["linkText=勤怠登録", "linkText"],
+        ["css=.form-group:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'勤怠登録')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/kintai/input')]", "xpath:href"],
+        ["xpath=//a", "xpath:position"],
+        ["xpath=//a[contains(.,'勤怠登録')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f6736e73-585b-4eea-8f3a-87da612367fd",
+      "comment": "",
+      "command": "click",
+      "target": "id=entry",
+      "targets": [
+        ["id=entry", "id"],
+        ["css=#entry", "css:finder"],
+        ["xpath=//input[@id='entry']", "xpath:attributes"],
+        ["xpath=//div[12]/input", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "0ac15f5c-1cdd-4e0b-bf32-b2b63664c17d",
+    "name": "2-3_勤怠検索",
+    "commands": [{
+      "id": "a8d3d0b0-c4fb-4dae-85ab-297c910d3185",
+      "comment": "",
+      "command": "open",
+      "target": "http://192.168.1.100/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e25cc499-7a37-4b98-8582-5020003384c2",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1110x824",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5ea631cd-7f5c-44cd-8fdc-0c3bd16ded39",
+      "comment": "",
+      "command": "click",
+      "target": "name=employee_id",
+      "targets": [
+        ["name=employee_id", "name"],
+        ["css=.employee_id > input", "css:finder"],
+        ["xpath=//input[@name='employee_id']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "abc59525-9a6b-4743-833a-3f3de510986e",
+      "comment": "",
+      "command": "type",
+      "target": "name=employee_id",
+      "targets": [
+        ["name=employee_id", "name"],
+        ["css=.employee_id > input", "css:finder"],
+        ["xpath=//input[@name='employee_id']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "1"
+    }, {
+      "id": "2f7d08bc-b323-4aa1-9383-69acf67c430a",
+      "comment": "",
+      "command": "click",
+      "target": "name=password",
+      "targets": [
+        ["name=password", "name"],
+        ["css=.password > input", "css:finder"],
+        ["xpath=//input[@name='password']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3a8906da-c9e8-4fe3-9ea5-3488a31d0e81",
+      "comment": "",
+      "command": "type",
+      "target": "name=password",
+      "targets": [
+        ["name=password", "name"],
+        ["css=.password > input", "css:finder"],
+        ["xpath=//input[@name='password']", "xpath:attributes"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "password"
+    }, {
+      "id": "d77625cd-92ae-4cc4-91ad-0776a18e1acd",
+      "comment": "",
+      "command": "click",
+      "target": "css=.login_btn",
+      "targets": [
+        ["css=.login_btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'ログイン')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5bc39eea-6535-4bd0-8ad1-8230ab57f712",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=勤怠照会",
+      "targets": [
+        ["linkText=勤怠照会", "linkText"],
+        ["css=.form-group:nth-child(3) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'勤怠照会')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/kintai/inquire')]", "xpath:href"],
+        ["xpath=//div[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'勤怠照会')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4b7e17b3-a679-49e9-a774-7a1ca928582e",
+      "comment": "",
+      "command": "click",
+      "target": "id=search",
+      "targets": [
+        ["id=search", "id"],
+        ["css=#search", "css:finder"],
+        ["xpath=//input[@id='search']", "xpath:attributes"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "d3517561-37fb-4f51-8a9a-06409fd58c68",
+    "name": "2-1_ログイン",
+    "commands": [{
+      "id": "d7131e29-59fb-4057-ba98-4caca058e9ac",
+      "comment": "",
+      "command": "open",
+      "target": "http://192.168.1.100/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c81e477d-271b-4a6f-961c-f3c223b3e9c0",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1111x824",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "39f43546-3cbd-45ad-8560-a210665ab62c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.login_btn",
+      "targets": [
+        ["css=.login_btn", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'ログイン')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "c03a6082-e528-4c28-89e8-7a5770a2931b",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["2dd90d36-d30e-4682-a4a9-0ef2d90bc785"]
+  }],
+  "urls": ["http://192.168.1.100/", "http://192.168.1.100/login_auth", "http://192.168.1.100/http://192.168.1.100/"],
+  "plugins": []
+}
